@@ -1,0 +1,7 @@
+---
+- name: Test ping to VM
+  gather_facts: false
+  hosts: backstage
+  tasks:
+    - name: Ping 'backstage'
+      ping:
