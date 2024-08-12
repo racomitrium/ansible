@@ -2,5 +2,17 @@
 - name: Install Backstage on Ubuntu server
   hosts: backstage
 
+  tasks:
+    - name: Run npx @backstage/create-app@latest
+      ansible.builtin.shell: |
+        pwd
+      register: result
+
+    - name: Debug/ determine working directory for ansible.builtin.shell
+      ansible.builtin.debug:
+        msg: "ansible.builtin.shell working directory is {{ result.stdout }}"
+
+# npx @backstage/create-app@latest
+
     # - Install backstage
     # - Install postgresql
