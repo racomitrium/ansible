@@ -17,6 +17,7 @@
       become: true
       apt:
         name:
+          - docker.io # note: this should probably be updated to use the official docker repo
           - curl
           - make
           - build-essential
@@ -26,7 +27,7 @@
     # github.com/nvm-sh/nvm?tab=readme-ov-file#ansible
     # https://github.com/nvm-sh/nvm?tab=readme-ov-file#install--update-script
     - name: Install nvm
-      ansible.builtin.shell: >
+      ansible.builtin.shell: |
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
       args:
         creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
@@ -39,15 +40,6 @@
       args:
         executable: /bin/bash
         chdir: "{{ansible_env.HOME}}"
-
-    # TODO: Improve this to use official repo
-    # sudo apt install docker.io
-    - name: Install docker(.io)
-      become: true
-      apt:
-        name:
-          - docker.io
-        state: present
 
     # Enable ports 3000 and 7007
     - name: Allow ports 3000 & 7007
